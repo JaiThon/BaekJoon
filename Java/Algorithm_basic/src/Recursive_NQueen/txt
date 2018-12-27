@@ -1,0 +1,40 @@
+package Recursive_NQueen;
+
+import java.util.Scanner;
+
+public class Main {
+	static int N;
+	static int count = 0;
+	public static void main(String args[]) {
+		Scanner in = new Scanner(System.in);
+		N = in.nextInt();
+		int [] cols = new int[N+1];
+		queens(cols,N);
+		System.out.println(count);
+	}
+	public static boolean queens(int[] cols, int level) {
+		if(!promising(cols, level))
+			return false;
+		else if(level == N) {
+			count++;
+			return true;
+		}
+		for(int i = 1; i <= N; i++) {
+			cols[level + 1] = i;
+			if(queens(cols ,level + 1)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public static boolean promising(int [] cols,int level) {
+		for(int i = 1; i < level; i++)
+		{
+			if(cols[i] == cols[level])
+				return false;
+			else if(level - i == Math.abs(cols[level] - cols[i]))
+				return false;
+		}
+		return true;
+	}
+}

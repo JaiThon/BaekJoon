@@ -1,0 +1,53 @@
+package Problem_B;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String args[]) {
+		Scanner in = new Scanner(System.in);
+		int doll_numb = in.nextInt();
+		int prefer = in.nextInt();
+		int doll[] = new int[doll_numb];
+		for(int i = 0; i < doll_numb; i ++)
+			doll[i] = in.nextInt();
+
+		System.out.println(find_max_variance(doll, prefer));
+		//	System.out.println(mk_average(doll,3));
+		// System.out.format("%.6f%n", mk_variance(doll,3, mk_average(doll,3)));
+		//  String variance = String.format("%.6f", mk_variance(doll,3, mk_average(doll,3)));
+		// System.out.println(mk_standard_devi(Float.parseFloat(variance)));
+	}
+	public static int mk_average(ArrayList<Integer> list, int size) {
+		int sum = 0;
+		for(int i = 0; i < size; i++)
+			sum += list.get(i);
+		return sum/size;
+	}
+	public static double mk_variance(ArrayList<Integer> list, int size) {
+		int average = mk_average(list,size);
+		int arr[] = new int[size];
+
+		int sum = 0;
+		for(int i =0; i < size; i++) 
+			arr[i] = (int) Math.pow(list.get(i)-average , 2);
+		for(int i =0; i < arr.length; i++)
+			sum += arr[i];
+		return (double)sum / size;
+	}
+	public static double find_max_variance(int doll[], int prefer) {
+		ArrayList list = new ArrayList<Integer>();
+		ArrayList result = new ArrayList<Double>();
+		for(int i=0; i < (doll.length - prefer + 1); i++) {
+			for(int j = 0; j < i + prefer; j++) {
+				list.add(doll[j]);
+			}
+			result.add(mk_variance(list, prefer));
+			list.clear();
+		}
+		double re = (double) Collections.min(result);
+		re = (Math.sqrt(re));
+		return re;
+	}
+}
