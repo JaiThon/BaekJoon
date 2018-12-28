@@ -1,0 +1,35 @@
+package Problem_B;
+
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String args[]) {
+		Scanner in = new Scanner(System.in);
+		int doll_numb = in.nextInt();
+		int prefer = in.nextInt();
+		int doll[] = new int[doll_numb];
+
+		double v = 100.0;
+		
+		for(int i = 0; i < doll.length; i++) 
+			doll[i] = in.nextInt();
+
+		for(int i = 0; i < doll.length; i++) 
+			for(int j = i; j < doll.length; j++){
+				if( j - i + 1 >= prefer) {
+					double sum1 = 0.0;
+					double sum2 = 0.0;
+					double m;
+					for(int s = i; s < j+1; s++)
+						sum1 += doll[s];
+					m = sum1 / (j - i + 1);
+					for(int s = i; s < j+1; s++)
+						sum2 += Math.pow(doll[s] - m, 2);
+					if( v >  sum2 / (j - i + 1));
+						v = sum2 / (j - i + 1);
+						System.out.println(v);
+				}
+			}
+		System.out.println(Math.sqrt(v));
+	}
+}
